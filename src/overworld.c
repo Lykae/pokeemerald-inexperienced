@@ -1708,6 +1708,7 @@ void CB2_ReturnToField(void)
         FieldClearVBlankHBlankCallbacks();
         SetMainCallback2(CB2_ReturnToFieldLocal);
     }
+    HealPlayerParty();
 }
 
 static void CB2_ReturnToFieldLocal(void)
