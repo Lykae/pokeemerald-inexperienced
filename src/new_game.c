@@ -210,6 +210,8 @@ void NewGameInitData(void)
         PreloadRandomizationTables();
     #endif
     ResetItemFlags();
+    AddBagItem(ITEM_TERA_ORB, 1);
+    FlagSet(FLAG_TERA_ORB_CHARGED_0x021);
 }
 
 static void ResetMiniGamesRecords(void)

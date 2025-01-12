@@ -1210,20 +1210,20 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         u32 ivRandom = Random32();
         value = (u16)ivRandom;
 
-        iv = value & MAX_IV_MASK;
+        iv = 31;
         SetBoxMonData(boxMon, MON_DATA_HP_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 5)) >> 5;
+        iv = 31;
         SetBoxMonData(boxMon, MON_DATA_ATK_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 10)) >> 10;
+        iv = 31;
         SetBoxMonData(boxMon, MON_DATA_DEF_IV, &iv);
 
         value = (u16)(ivRandom >> 16);
 
-        iv = value & MAX_IV_MASK;
+        iv = 31;
         SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 5)) >> 5;
+        iv = 31;
         SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 10)) >> 10;
+        iv = 31;
         SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
 
         if (gSpeciesInfo[species].perfectIVCount != 0)
@@ -3096,6 +3096,24 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         case MON_DATA_SPDEF_IV:
             SET8(substruct3->spDefenseIV);
             break;
+        //case MON_DATA_HP_IV:
+        //    SET8(substruct3->hpIV);
+        //    break;
+        //case MON_DATA_ATK_IV:
+        //    SET8(substruct3->attackIV);
+        //    break;
+        //case MON_DATA_DEF_IV:
+        //    SET8(substruct3->defenseIV);
+        //    break;
+        //case MON_DATA_SPEED_IV:
+        //    SET8(substruct3->speedIV);
+        //    break;
+        //case MON_DATA_SPATK_IV:
+        //    SET8(substruct3->spAttackIV);
+        //    break;
+        //case MON_DATA_SPDEF_IV:
+        //    SET8(substruct3->spDefenseIV);
+        //    break;
         case MON_DATA_IS_EGG:
             SET8(substruct3->isEgg);
             if (substruct3->isEgg)
