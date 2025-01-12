@@ -15405,94 +15405,111 @@ static void Cmd_handleballthrow(void)
         if (gBattleResults.catchAttempts[ballId] < 255)
             gBattleResults.catchAttempts[ballId]++;
 
-        if (odds > 254) // mon caught
-        {
-            BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_3_SHAKES_SUCCESS);
-            MarkBattlerForControllerExec(gBattlerAttacker);
-            TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
-            gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
-            SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_POKEBALL, &ballId);
 
-            if (CalculatePlayerPartyCount() == PARTY_SIZE)
-                gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-            else
-                gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+        // act like master+healball
+        BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_3_SHAKES_SUCCESS);
+        MarkBattlerForControllerExec(gBattlerAttacker);
+        TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
+        gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
+        SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_POKEBALL, &ballId);
+        if (CalculatePlayerPartyCount() == PARTY_SIZE)
+            gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+        else
+            gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+        
+        MonRestorePP(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]]);
+        HealStatusConditions(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], STATUS1_ANY, gBattlerTarget);
+        gBattleMons[gBattlerTarget].hp = gBattleMons[gBattlerTarget].maxHP;
+        SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_HP, &gBattleMons[gBattlerTarget].hp);
 
-            if (gLastUsedItem == BALL_HEAL)
-            {
-                MonRestorePP(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]]);
-                HealStatusConditions(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], STATUS1_ANY, gBattlerTarget);
-                gBattleMons[gBattlerTarget].hp = gBattleMons[gBattlerTarget].maxHP;
-                SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_HP, &gBattleMons[gBattlerTarget].hp);
-            }
-        }
-        else // mon may be caught, calculate shakes
-        {
-            u8 shakes;
-            u8 maxShakes;
-
-            gBattleSpritesDataPtr->animationData->isCriticalCapture = FALSE;
-            gBattleSpritesDataPtr->animationData->criticalCaptureSuccess = FALSE;
-
-            if (CriticalCapture(odds))
-            {
-                maxShakes = BALL_1_SHAKE;  // critical capture doesn't guarantee capture
-                gBattleSpritesDataPtr->animationData->isCriticalCapture = TRUE;
-            }
-            else
-            {
-                maxShakes = BALL_3_SHAKES_SUCCESS;
-            }
-
-            if (ballId == BALL_MASTER)
-            {
-                shakes = maxShakes;
-            }
-            else
-            {
-                odds = Sqrt(Sqrt(16711680 / odds));
-                odds = 1048560 / odds;
-                for (shakes = 0; shakes < maxShakes && Random() < odds; shakes++);
-            }
-
-            BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, shakes);
-            MarkBattlerForControllerExec(gBattlerAttacker);
-
-            if (shakes == maxShakes) // mon caught, copy of the code above
-            {
-                if (IsCriticalCapture())
-                    gBattleSpritesDataPtr->animationData->criticalCaptureSuccess = TRUE;
-
-                TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
-                gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
-                SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_POKEBALL, &ballId);
-
-                if (CalculatePlayerPartyCount() == PARTY_SIZE)
-                    gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-                else
-                    gBattleCommunication[MULTISTRING_CHOOSER] = 1;
-
-                if (ballId == BALL_HEAL)
-                {
-                    MonRestorePP(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]]);
-                    HealStatusConditions(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], STATUS1_ANY, gBattlerTarget);
-                    gBattleMons[gBattlerTarget].hp = gBattleMons[gBattlerTarget].maxHP;
-                    SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_HP, &gBattleMons[gBattlerTarget].hp);
-                }
-            }
-            else // not caught
-            {
-                if (!gHasFetchedBall)
-                    gLastUsedBall = gLastUsedItem;
-
-                if (IsCriticalCapture())
-                    gBattleCommunication[MULTISTRING_CHOOSER] = BALL_3_SHAKES_FAIL;
-                else
-                    gBattleCommunication[MULTISTRING_CHOOSER] = shakes;
-
-                gBattlescriptCurrInstr = BattleScript_ShakeBallThrow;
-            }
-        }
+        //if (odds > 254) // mon caught
+        //{
+        //    BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_3_SHAKES_SUCCESS);
+        //    MarkBattlerForControllerExec(gBattlerAttacker);
+        //    TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
+        //    gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
+        //    SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_POKEBALL, &ballId);
+//
+        //    if (CalculatePlayerPartyCount() == PARTY_SIZE)
+        //        gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+        //    else
+        //        gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+//
+        //    if (gLastUsedItem == BALL_HEAL)
+        //    {
+        //        MonRestorePP(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]]);
+        //        HealStatusConditions(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], STATUS1_ANY, gBattlerTarget);
+        //        gBattleMons[gBattlerTarget].hp = gBattleMons[gBattlerTarget].maxHP;
+        //        SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_HP, &gBattleMons[gBattlerTarget].hp);
+        //    }
+        //}
+        //else // mon may be caught, calculate shakes
+        //{
+        //    u8 shakes;
+        //    u8 maxShakes;
+//
+        //    gBattleSpritesDataPtr->animationData->isCriticalCapture = FALSE;
+        //    gBattleSpritesDataPtr->animationData->criticalCaptureSuccess = FALSE;
+//
+        //    if (CriticalCapture(odds))
+        //    {
+        //        maxShakes = BALL_1_SHAKE;  // critical capture doesn't guarantee capture
+        //        gBattleSpritesDataPtr->animationData->isCriticalCapture = TRUE;
+        //    }
+        //    else
+        //    {
+        //        maxShakes = BALL_3_SHAKES_SUCCESS;
+        //    }
+//
+        //    if (ballId == BALL_MASTER)
+        //    {
+        //        shakes = maxShakes;
+        //    }
+        //    else
+        //    {
+        //        odds = Sqrt(Sqrt(16711680 / odds));
+        //        odds = 1048560 / odds;
+        //        for (shakes = 0; shakes < maxShakes && Random() < odds; shakes++);
+        //    }
+//
+        //    BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, shakes);
+        //    MarkBattlerForControllerExec(gBattlerAttacker);
+//
+        //    if (shakes == maxShakes) // mon caught, copy of the code above
+        //    {
+        //        if (IsCriticalCapture())
+        //            gBattleSpritesDataPtr->animationData->criticalCaptureSuccess = TRUE;
+//
+        //        TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
+        //        gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
+        //        SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_POKEBALL, &ballId);
+//
+        //        if (CalculatePlayerPartyCount() == PARTY_SIZE)
+        //            gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+        //        else
+        //            gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+//
+        //        if (ballId == BALL_HEAL)
+        //        {
+        //            MonRestorePP(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]]);
+        //            HealStatusConditions(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], STATUS1_ANY, gBattlerTarget);
+        //            gBattleMons[gBattlerTarget].hp = gBattleMons[gBattlerTarget].maxHP;
+        //            SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_HP, &gBattleMons[gBattlerTarget].hp);
+        //        }
+        //    }
+        //    else // not caught
+        //    {
+        //        if (!gHasFetchedBall)
+        //            gLastUsedBall = gLastUsedItem;
+//
+        //        if (IsCriticalCapture())
+        //            gBattleCommunication[MULTISTRING_CHOOSER] = BALL_3_SHAKES_FAIL;
+        //        else
+        //            gBattleCommunication[MULTISTRING_CHOOSER] = shakes;
+//
+        //        gBattlescriptCurrInstr = BattleScript_ShakeBallThrow;
+        //    }
+        //}
     }
 }
 
