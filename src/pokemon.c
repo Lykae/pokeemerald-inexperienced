@@ -1111,6 +1111,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 availableIVs[NUM_STATS];
     u8 selectedIvs[NUM_STATS];
     bool32 isShiny;
+    u8 randomTera = Random() % 18;
 
     ZeroBoxMonData(boxMon);
 
@@ -1193,6 +1194,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_MET_GAME, &gGameVersion);
     value = ITEM_POKE_BALL;
     SetBoxMonData(boxMon, MON_DATA_POKEBALL, &value);
+    SetBoxMonData(boxMon, MON_DATA_TERA_TYPE, &randomTera);
     SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
 
     if (fixedIV < USE_RANDOM_IVS)
