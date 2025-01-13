@@ -171,7 +171,7 @@ static const u16 sRandomizerItemWhitelist[] =
     //ITEM_BLUE_SHARD,
     //ITEM_YELLOW_SHARD,
     //ITEM_GREEN_SHARD,
-    ITEM_HEART_SCALE,
+    //ITEM_HEART_SCALE,
     //ITEM_HONEY,
     //ITEM_RARE_BONE,
     //ITEM_ODD_KEYSTONE,
