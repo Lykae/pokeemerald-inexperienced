@@ -45,7 +45,7 @@
 
 #define FLAG_NO_ITEMS_IN_BATTLE_0x020    0x20 // Unused Flag
 #define FLAG_TERA_ORB_CHARGED_0x021    0x21 // Unused Flag
-#define FLAG_UNUSED_0x022    0x22 // Unused Flag
+#define FLAG_NO_WILD_ENCOUNTERS_0x022    0x22 // Unused Flag
 #define FLAG_UNUSED_0x023    0x23 // Unused Flag
 #define FLAG_UNUSED_0x024    0x24 // Unused Flag
 #define FLAG_UNUSED_0x025    0x25 // Unused Flag

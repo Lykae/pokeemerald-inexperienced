@@ -45,6 +45,13 @@ static EWRAM_DATA u16 sPrevMetatileBehavior = 0;
 
 COMMON_DATA u8 gSelectedObjectEvent = 0;
 
+static const u8 repelActivatedMessage[] = _("Repel activated!");
+static const u8 repelDeactivatedMessage[] = _("Repel deactivated!");
+static u8 textboxTimer = 0;
+static void ToggleRepel();
+static void OpenPC();
+static void ShowTimedMessage(bool32);
+
 static void GetPlayerPosition(struct MapPosition *);
 static void GetInFrontOfPlayerPosition(struct MapPosition *);
 static u16 GetPlayerCurMetatileBehavior(int);
@@ -92,6 +99,8 @@ void FieldClearPlayerInput(struct FieldInput *input)
     input->heldDirection2 = FALSE;
     input->tookStep = FALSE;
     input->pressedBButton = FALSE;
+    input->pressedLButton = FALSE;
+    input->pressedRButton = FALSE;
     input->input_field_1_0 = FALSE;
     input->input_field_1_1 = FALSE;
     input->input_field_1_2 = FALSE;
@@ -117,6 +126,10 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
                 input->pressedAButton = TRUE;
             if (newKeys & B_BUTTON)
                 input->pressedBButton = TRUE;
+            if (newKeys & L_BUTTON)
+                input->pressedLButton = TRUE;
+            if (newKeys & R_BUTTON)
+                input->pressedRButton = TRUE;
         }
 
         if (heldKeys & (DPAD_UP | DPAD_DOWN | DPAD_LEFT | DPAD_RIGHT))
@@ -166,6 +179,21 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     playerDirection = GetPlayerFacingDirection();
     GetPlayerPosition(&position);
     metatileBehavior = MapGridGetMetatileBehaviorAt(position.x, position.y);
+
+    if (textboxTimer > 0)
+    {
+        textboxTimer--;
+        if (textboxTimer == 0)
+        {
+            HideFieldMessageBox();
+        }
+    }
+    
+    if (input->pressedLButton)
+    {
+        PlaySE(SE_WIN_OPEN);
+        ToggleRepel();
+    }
 
     if (CheckForTrainersWantingBattle() == TRUE)
         return TRUE;
@@ -223,6 +251,11 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         ShowStartMenu();
         return TRUE;
     }
+    if (input->pressedRButton)
+    {
+        OpenPC();
+        return TRUE;
+    }
     if (input->pressedSelectButton && UseRegisteredKeyItemOnField() == TRUE)
         return TRUE;
 
@@ -235,6 +268,29 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     }
 
     return FALSE;
+}
+
+static void OpenPC() {
+    ScriptContext_SetupScript(EventScript_PC);
+}
+
+static void ToggleRepel() {
+    if (FlagGet(FLAG_NO_WILD_ENCOUNTERS_0x022)) {
+        ShowTimedMessage(FALSE);
+        FlagClear(FLAG_NO_WILD_ENCOUNTERS_0x022);
+    } else {
+        ShowTimedMessage(TRUE);
+        FlagSet(FLAG_NO_WILD_ENCOUNTERS_0x022);
+    }
+}
+
+static void ShowTimedMessage(bool32 msg) {
+    if (msg == TRUE) {
+        ShowFieldMessage(repelActivatedMessage);
+    } else {
+        ShowFieldMessage(repelDeactivatedMessage);
+    }
+    textboxTimer = 60;
 }
 
 static void GetPlayerPosition(struct MapPosition *position)

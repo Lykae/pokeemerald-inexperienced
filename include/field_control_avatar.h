@@ -7,6 +7,8 @@ struct FieldInput
     bool8 checkStandardWildEncounter:1;
     bool8 pressedStartButton:1;
     bool8 pressedSelectButton:1;
+    bool8 pressedLButton:1;
+    bool8 pressedRButton:1;
     bool8 heldDirection:1;
     bool8 heldDirection2:1;
     bool8 tookStep:1;
