@@ -328,7 +328,6 @@ static const u16 sShopInventory_SevenBadges[] = {
 
 static const u16 sShopInventory_EightBadges[] = {
     ITEM_POKE_BALL,
-    ITEM_MAX_REPEL,
     ITEM_ABILITY_PATCH,
     ITEM_ABILITY_CAPSULE,
     ITEM_RARE_CANDY,
