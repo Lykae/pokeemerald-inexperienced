@@ -13,12 +13,15 @@ LilycoveCity_DepartmentStore_3F_EventScript_ClerkLeft::
 
 	.align 2
 LilycoveCity_DepartmentStore_3F_Pokemart_Vitamins:
-	.2byte ITEM_PROTEIN
-	.2byte ITEM_CALCIUM
-	.2byte ITEM_IRON
-	.2byte ITEM_ZINC
-	.2byte ITEM_CARBOS
-	.2byte ITEM_HP_UP
+	.2byte ITEM_ROTOM_CATALOG
+	.2byte ITEM_GRACIDEA
+	.2byte ITEM_REVEAL_GLASS
+	.2byte ITEM_DNA_SPLICERS
+	.2byte ITEM_ZYGARDE_CUBE
+	.2byte ITEM_PRISON_BOTTLE
+	.2byte ITEM_N_SOLARIZER
+	.2byte ITEM_N_LUNARIZER
+	.2byte ITEM_REINS_OF_UNITY
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_3F_EventScript_ClerkRight::
@@ -33,13 +36,24 @@ LilycoveCity_DepartmentStore_3F_EventScript_ClerkRight::
 
 	.align 2
 LilycoveCity_DepartmentStore_3F_Pokemart_StatBoosters:
-	.2byte ITEM_X_SPEED
-	.2byte ITEM_X_SP_ATK
-	.2byte ITEM_X_ATTACK
-	.2byte ITEM_X_DEFENSE
-	.2byte ITEM_DIRE_HIT
-	.2byte ITEM_GUARD_SPEC
-	.2byte ITEM_X_ACCURACY
+	.2byte ITEM_BUG_TERA_SHARD
+	.2byte ITEM_DARK_TERA_SHARD
+	.2byte ITEM_DRAGON_TERA_SHARD
+	.2byte ITEM_ELECTRIC_TERA_SHARD
+	.2byte ITEM_FAIRY_TERA_SHARD
+	.2byte ITEM_FIGHTING_TERA_SHARD
+	.2byte ITEM_FIRE_TERA_SHARD
+	.2byte ITEM_FLYING_TERA_SHARD
+	.2byte ITEM_GHOST_TERA_SHARD
+	.2byte ITEM_GRASS_TERA_SHARD
+	.2byte ITEM_GROUND_TERA_SHARD
+	.2byte ITEM_ICE_TERA_SHARD
+	.2byte ITEM_NORMAL_TERA_SHARD
+	.2byte ITEM_POISON_TERA_SHARD
+	.2byte ITEM_PSYCHIC_TERA_SHARD
+	.2byte ITEM_ROCK_TERA_SHARD
+	.2byte ITEM_STEEL_TERA_SHARD
+	.2byte ITEM_WATER_TERA_SHARD
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_3F_EventScript_TriathleteM::
