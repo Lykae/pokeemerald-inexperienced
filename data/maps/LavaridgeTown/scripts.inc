@@ -85,7 +85,6 @@ LavaridgeTown_EventScript_RivalExit::
 	call_if_ne VAR_0x8008, 9, LavaridgeTown_EventScript_RivalExit2
 	removeobject LOCALID_RIVAL_ON_BIKE
 	setvar VAR_LAVARIDGE_TOWN_STATE, 2
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	savebgm MUS_DUMMY
 	fadedefaultbgm
 	releaseall

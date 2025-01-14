@@ -260,7 +260,6 @@ SootopolisCity_EventScript_LegendariesSceneFromPokeCenter::
 	waitmovement 0
 	special RemoveCameraObject
 	setvar VAR_SOOTOPOLIS_CITY_STATE, 2
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	releaseall
 	end
 
@@ -360,7 +359,6 @@ SootopolisCity_EventScript_LegendariesSceneFromDive::
 	waitmovement 0
 	special RemoveCameraObject
 	setvar VAR_SOOTOPOLIS_CITY_STATE, 2
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	releaseall
 	end
 
@@ -532,7 +530,6 @@ SootopolisCity_EventScript_RayquazaSceneFromPokeCenter::
 	clearflag FLAG_LEGENDARIES_IN_SOOTOPOLIS
 	fadenewbgm MUS_SOOTOPOLIS
 	delay 120
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	warpwhitefade MAP_SOOTOPOLIS_CITY, 43, 32
 	waitstate
 	end
@@ -585,7 +582,6 @@ SootopolisCity_EventScript_RayquazaSceneFromDive::
 	clearflag FLAG_LEGENDARIES_IN_SOOTOPOLIS
 	fadenewbgm MUS_SURF
 	delay 120
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	warpwhitefade MAP_SOOTOPOLIS_CITY, 29, 53
 	waitstate
 	end

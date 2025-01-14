@@ -185,7 +185,6 @@ AbnormalWeather_EventScript_EndEventAndCleanup_2::
 	special DrawWholeMapView
 	setvar VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_NONE
 	setvar VAR_SHOULD_END_ABNORMAL_WEATHER, 0
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	fadescreenswapbuffers FADE_FROM_BLACK
 	releaseall
 	end

@@ -81,7 +81,6 @@ SkyPillar_Outside_EventScript_WallaceScene::
 	closemessage
 	playse SE_EXIT
 	fadescreenswapbuffers FADE_TO_BLACK
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	setvar VAR_SOOTOPOLIS_CITY_STATE, 4
 	removeobject LOCALID_WALLACE
 	clearflag FLAG_HIDE_SOOTOPOLIS_CITY_WALLACE

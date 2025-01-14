@@ -103,7 +103,6 @@ SlateportCity_EventScript_ScottScene::
 	removeobject LOCALID_SCOTT
 	setobjectxyperm LOCALID_SCOTT, 10, 12
 	setobjectmovementtype LOCALID_SCOTT, MOVEMENT_TYPE_FACE_DOWN
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	setvar VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE, 2
 	addvar VAR_SCOTT_STATE, 1
 	releaseall

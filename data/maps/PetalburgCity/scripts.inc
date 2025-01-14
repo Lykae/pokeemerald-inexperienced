@@ -51,7 +51,6 @@ PetalburgCity_EventScript_WallyTutorial::
 	waitmovement LOCALID_WALLY, MAP_PETALBURG_CITY
 	msgbox Route102_Text_LetsGoBack, MSGBOX_DEFAULT
 	closemessage
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	setvar VAR_PETALBURG_CITY_STATE, 3
 	fadedefaultbgm
 	clearflag FLAG_DONT_TRANSITION_MUSIC
@@ -80,7 +79,6 @@ PetalburgCity_EventScript_WalkToWallyHouse::
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_PETALBURG_CITY
 	closedoor VAR_0x8004, VAR_0x8005
 	waitdooranim
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	fadedefaultbgm
 	clearflag FLAG_DONT_TRANSITION_MUSIC
 	warp MAP_PETALBURG_CITY_WALLYS_HOUSE, 2, 4

@@ -77,7 +77,6 @@ Route128_EventScript_KyogreAwakenedScene::
 	delay 15
 	removeobject LOCALID_STEVEN
 	waitfieldeffect FLDEFF_NPCFLY_OUT
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	setvar VAR_ROUTE128_STATE, 2
 	releaseall
 	end

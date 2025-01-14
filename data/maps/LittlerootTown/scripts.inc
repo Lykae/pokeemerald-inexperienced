@@ -165,7 +165,6 @@ LittlerootTown_EventScript_GoInsideWithMom::
 	closedoor VAR_0x8004, VAR_0x8005
 	waitdooranim
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_FAT_MAN
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	return
 
 LittlerootTown_Movement_MomExitHouse:
@@ -218,7 +217,6 @@ LittlerootTown_EventScript_BeginDexUpgradeScene::
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH
 	delay 20
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	warp MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, 6, 5
 	waitstate
 	releaseall
