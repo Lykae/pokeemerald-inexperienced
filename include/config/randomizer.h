@@ -26,7 +26,7 @@
 
 #endif // RANDOMIZER_DYNAMIC_SPECIES
 
-#define RANDOMIZER_MAX_TM           ITEM_TM50
+#define RANDOMIZER_MAX_TM           ITEM_TM100
 
 // Vars and features
 
