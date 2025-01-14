@@ -36,6 +36,7 @@ LilycoveCity_DepartmentStore_3F_EventScript_ClerkRight::
 
 	.align 2
 LilycoveCity_DepartmentStore_3F_Pokemart_StatBoosters:
+	.2byte ITEM_STELLAR_TERA_SHARD
 	.2byte ITEM_BUG_TERA_SHARD
 	.2byte ITEM_DARK_TERA_SHARD
 	.2byte ITEM_DRAGON_TERA_SHARD
