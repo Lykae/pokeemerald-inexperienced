@@ -130,9 +130,9 @@ static const u8 sKeyToRoomDesc[]      = _("A key that opens a\n"
                                           "door inside the\n"
                                           "Abandoned Ship.");
 
-static const u8 sTeraShardDesc[]      = _("These shards may\n"
-                                          "form when a Tera\n"
-                                          "Pokémon faints.");
+static const u8 sTeraShardDesc[]      = _("These shards can\n"
+                                          "alter a Mon's\n"
+                                          "Tera type.");
 
 static const u8 sGenericMulchDesc[]   = _("A fertilizer that\n"
                                           "is unsuitable for\n"
@@ -14060,7 +14060,7 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_FullHeal,
         .iconPic = gItemIcon_TeraShard,
         .iconPalette = gItemIconPalette_GhostTeraShard,
-        .teraType = 9,
+        .teraType = 8,
     },
 
     [ITEM_GRASS_TERA_SHARD] =

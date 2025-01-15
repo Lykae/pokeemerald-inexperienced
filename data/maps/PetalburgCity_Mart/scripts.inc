@@ -28,7 +28,7 @@ PetalburgCity_Mart_Pokemart_Basic:
 	pokemartlistend
 
 PetalburgCity_Mart_EventScript_ExpandedItems::
-	pokemart PetalburgCity_Mart_Pokemart_Expanded
+	pokemart 0
 	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
 	release
 	end
