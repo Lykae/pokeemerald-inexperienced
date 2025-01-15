@@ -23,6 +23,7 @@ struct Item
     u8 padding:5;
     u8 pocket;
     u8 type;
+    u32 teraType;
     u8 battleUsage;
     u8 flingPower;
     const u32 *iconPic;
@@ -70,6 +71,7 @@ bool8 AddPyramidBagItem(u16 itemId, u16 count);
 bool8 RemovePyramidBagItem(u16 itemId, u16 count);
 const u8 *ItemId_GetName(u16 itemId);
 u32 ItemId_GetPrice(u16 itemId);
+u32 ItemId_GetTeraType(u16 itemId);
 const u8 *ItemId_GetEffect(u32 itemId);
 u32 ItemId_GetHoldEffect(u32 itemId);
 u32 ItemId_GetHoldEffectParam(u32 itemId);

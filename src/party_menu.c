@@ -4545,7 +4545,7 @@ static void GetMedicineItemEffectMessage(u16 item, u32 statusCured)
         StringExpandPlaceholders(gStringVar4, gText_PkmnGotOverInfatuation);
         break;
     case ITEM_EFFECT_CURE_ALL_STATUS:
-        StringExpandPlaceholders(gStringVar4, gText_PkmnBecameHealthy);
+        StringExpandPlaceholders(gStringVar4, gText_PkmnChangedTera);
         break;
     case ITEM_EFFECT_HP_EV:
         StringCopy(gStringVar2, gText_HP3);

@@ -61,6 +61,7 @@
 #include "constants/union_room.h"
 #include "constants/weather.h"
 #include "wild_encounter.h"
+#include <string.h>
 
 #define FRIENDSHIP_EVO_THRESHOLD ((P_FRIENDSHIP_EVO_THRESHOLD >= GEN_8) ? 160 : 220)
 
@@ -3861,6 +3862,11 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                 }
             }
 
+            //Tera Shards
+            if (ApplyTeraShard(mon, item) == 0) {
+                retVal = FALSE;
+            }
+
             // Cure status
             if ((itemEffect[i] & ITEM3_SLEEP) && HealStatusConditions(mon, STATUS1_SLEEP, battlerId) == 0)
                 retVal = FALSE;
@@ -4208,6 +4214,19 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
         }
     }
     return retVal;
+}
+
+bool8 ApplyTeraShard(struct Pokemon *mon, u16 itemId) {
+    u32 itemTera;
+    u32 monTera;
+    itemTera = ItemId_GetTeraType(itemId);
+    monTera = GetMonData(mon, MON_DATA_TERA_TYPE);
+
+    if(itemTera != 0 && itemTera != monTera) {
+        SetMonData(mon, MON_DATA_TERA_TYPE, &itemTera);
+        return FALSE;
+    }
+    return TRUE;
 }
 
 bool8 HealStatusConditions(struct Pokemon *mon, u32 healMask, u8 battlerId)

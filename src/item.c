@@ -875,6 +875,11 @@ u32 ItemId_GetPrice(u16 itemId)
     return gItemsInfo[SanitizeItemId(itemId)].price;
 }
 
+u32 ItemId_GetTeraType(u16 itemId)
+{
+    return gItemsInfo[SanitizeItemId(itemId)].teraType;
+}
+
 static bool32 DoesItemHavePluralName(u16 itemId)
 {
     return (gItemsInfo[SanitizeItemId(itemId)].pluralName[0] != '\0');
