@@ -1781,8 +1781,9 @@ static void PopulateSpeciesFromTrainerLocation(int matchCallId, u8 *destStr)
                 curSpecies = gWildMonHeaders[i].landMonsInfo->wildPokemon[slot].species;
 
                 #if RANDOMIZER_AVAILABLE == TRUE
+                    u8 randomTera;
                     curSpecies = RandomizeWildEncounter(curSpecies, mapNum, mapGroup,
-                    WILD_AREA_LAND, slot);
+                    WILD_AREA_LAND, slot, &randomTera);
                 #endif
 
                 species[numSpecies] = curSpecies;
@@ -1795,8 +1796,9 @@ static void PopulateSpeciesFromTrainerLocation(int matchCallId, u8 *destStr)
                 curSpecies = gWildMonHeaders[i].waterMonsInfo->wildPokemon[slot].species;
 
                 #if RANDOMIZER_AVAILABLE == TRUE
+                    u8 randomTera;
                     curSpecies = RandomizeWildEncounter(curSpecies, mapNum, mapGroup,
-                    WILD_AREA_WATER, slot);
+                    WILD_AREA_WATER, slot, &randomTera);
                 #endif
 
                 species[numSpecies] = curSpecies;
@@ -1829,9 +1831,10 @@ static void PopulateSpeciesFromTrainerParty(int matchCallId, u8 *destStr)
         u32 monId;
         monId = Random() % partySize;
         species = party[monId].species;
+        u8 randomTera;  
 
         #if RANDOMIZER_AVAILABLE == TRUE
-            species = RandomizeTrainerMon(trainerId, monId, partySize, species);
+            species = RandomizeTrainerMon(trainerId, monId, partySize, species, &randomTera);
         #endif
 
         speciesName = GetSpeciesName(species);
