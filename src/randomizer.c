@@ -11,6 +11,8 @@
 #include "data.h"
 #include "data/randomizer/special_form_tables.h"
 
+#define MAX_FINAL_EVOLUTIONS 10
+
 bool32 RandomizerFeatureEnabled(enum RandomizerFeature feature)
 {
     switch(feature)
@@ -632,14 +634,90 @@ static u16 RandomizeMonTableLookup(struct Sfc32State* state, enum RandomizerSpec
 
 static u16 RandomizeMonFromSeed(struct Sfc32State *state, enum RandomizerSpeciesMode mode, u16 species)
 {
+
     if (!IsSpeciesPermitted(species))
         return species;
 
     if (mode >= MAX_MON_MODE)
         mode = MON_RANDOM;
 
-    return RandomizeMonTableLookup(state, mode, species);
+    u16 randomSpecies;
+    randomSpecies = RandomizeMonTableLookup(state, mode, species);
 
+    return GetRandomMaxEvolutionaryStageSpecies(state, randomSpecies);
+
+}
+
+u16 GetRandomMaxEvolutionaryStageSpecies(struct Sfc32State *state, u16 species) {
+    u16 results[MAX_FINAL_EVOLUTIONS]; // Static array to hold results
+    int count = 0;
+    GetFinalEvolutions(species, results, &count);
+
+    if (count == 0) return species;
+
+    return results[RandomizerNextRange(state, count)];
+
+    //if (evos == NULL) {
+    //    return species;
+    //}
+    //
+    //u16 i;
+    //for (i = 0; evos[i].method != 0xFFFF; i++);
+    //
+    //return evos[RandomizerNextRange(state, i)].targetSpecies;
+}
+
+void GetFinalEvolutions(u16 species, u16 *results, int *numEvolutions) {
+    //u16 results[MAX_FINAL_EVOLUTIONS]; // Static array to hold results
+    int count = 0;
+
+    // Clear the results array
+    memset(results, 0, MAX_FINAL_EVOLUTIONS * sizeof(u16));
+
+    // Start the recursive collection
+    CollectFinalEvolutions(species, results, &count);
+
+    // Set the number of evolutions found
+    if (numEvolutions) *numEvolutions = count;
+
+}
+
+void CollectFinalEvolutions(u16 species, u16 *results, int *count)
+{
+    // Stop if we've reached the maximum allowed results
+    if (*count >= MAX_FINAL_EVOLUTIONS)
+        return;
+
+    // Get the evolutions for the current species
+    const struct Evolution *evolutions = GetSpeciesEvolutions(species);
+
+    // If no evolutions are found, add the species as a final evolution
+    if (evolutions == NULL)
+    {
+        // Avoid duplicates by checking if already in results
+        bool32 isDuplicate = FALSE;
+        for (int j = 0; j < *count; j++)
+        {
+            if (results[j] == species)
+            {
+                isDuplicate = TRUE;
+                break;
+            }
+        }
+
+        if (!isDuplicate)
+            results[(*count)++] = species;
+        return;
+    }
+
+    // Otherwise, iterate through the evolutions
+    for (int i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
+    {
+        u16 nextSpecies = evolutions[i].targetSpecies;
+
+        // Recursively collect final evolutions
+        CollectFinalEvolutions(nextSpecies, results, count);
+    }
 }
 
 // Fills an array with count Pokémon, with no repeats.

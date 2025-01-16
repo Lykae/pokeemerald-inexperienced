@@ -112,6 +112,12 @@ u16 RandomizeFixedEncounterMon(u16 species, u8 mapNum, u8 mapGroup, u8 localId);
 // Given a starter slot and the list of original starters, returns the starter in that slot.
 u16 RandomizeStarter(u16 starterSlot, const u16* originalStarters);
 
+u16 GetRandomMaxEvolutionaryStageSpecies(struct Sfc32State *state, u16 species);
+
+void GetFinalEvolutions(u16 species, u16 *results, int *numEvolutions);
+
+void CollectFinalEvolutions(u16 species, u16 *results, int *count);
+
 static inline bool32 GroupSetsIntersect(struct RandomizerGroupSet* originalCache, struct RandomizerGroupSet* targetCache)
 {
     return originalCache->maxGroup >= targetCache->minGroup
