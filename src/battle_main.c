@@ -1956,7 +1956,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
             u16 species = partyData[i].species;
             u32 perfectIvs[6] = {31, 31, 31, 31, 31, 31};
-            u8 randomTera = (Random() % 20) + 1;
+            u8 randomTera = RandomizerNextRange(seed, 20) + 1;
 
             if (RANDOMIZER_AVAILABLE) {
                 species = RandomizeTrainerMon(seed, i, monsCount, species);
