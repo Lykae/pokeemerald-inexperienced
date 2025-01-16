@@ -216,6 +216,7 @@ void NewGameInitData(void)
     AddBagItem(ITEM_ESCAPE_ROPE, 1);
     FlagSet(FLAG_TERA_ORB_CHARGED_0x021);
     FlagSet(FLAG_HIDE_MAP_NAME_POPUP);
+    FlagSet(FLAG_NO_TRAINER_SEE_0x023);
 }
 
 static void ResetMiniGamesRecords(void)
