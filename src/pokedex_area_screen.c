@@ -429,9 +429,8 @@ static bool8 MonListHasSpecies(const struct WildPokemonHeader *header, u16 speci
             #if RANDOMIZER_AVAILABLE == TRUE
                 if (!IsRandomizationPossible(curSpecies, species))
                     continue;
-                u8 randomTera;
                 curSpecies = RandomizeWildEncounter(
-                    curSpecies, header->mapNum, header->mapGroup, area, i, &randomTera);
+                    curSpecies, header->mapNum, header->mapGroup, area, i);
             #endif
             if (curSpecies == species)
                 return TRUE;

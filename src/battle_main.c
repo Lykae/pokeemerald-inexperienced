@@ -1956,10 +1956,10 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
             u16 species = partyData[i].species;
             u32 perfectIvs[6] = {31, 31, 31, 31, 31, 31};
-            u8 randomTera;
+            u8 randomTera = (Random() % 20) + 1;
 
             if (RANDOMIZER_AVAILABLE) {
-                species = RandomizeTrainerMon(seed, i, monsCount, species, &randomTera);
+                species = RandomizeTrainerMon(seed, i, monsCount, species);
             }
 
             if (trainer->doubleBattle == TRUE)
@@ -1982,7 +1982,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 otIdType = OT_ID_PRESET;
                 fixedOtId = HIHALF(personalityValue) ^ LOHALF(personalityValue);
             }
-            CreateMon(&party[i], species, partyData[i].lvl, 0, TRUE, personalityValue, otIdType, fixedOtId, randomTera);
+            CreateMon(&party[i], species, partyData[i].lvl, 0, TRUE, personalityValue, otIdType, fixedOtId);
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
 
             CustomTrainerPartyAssignMoves(&party[i], &partyData[i]);

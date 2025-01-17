@@ -2026,29 +2026,27 @@ bool8 ScrCmd_setwildbattle(struct ScriptContext *ctx)
     u16 species2 = ScriptReadHalfword(ctx);
     u8 level2 = ScriptReadByte(ctx);
     u16 item2 = ScriptReadHalfword(ctx);
-    u8 randomTera1;
-    u8 randomTera2;
 
     #if RANDOMIZER_AVAILABLE == TRUE
         u8 mapNum = gSaveBlock1Ptr->location.mapNum;
         u8 mapGroup = gSaveBlock1Ptr->location.mapGroup;
         u8 localId = gObjectEvents[gSelectedObjectEvent].localId;
 
-        species = RandomizeFixedEncounterMon(species, mapNum, mapGroup, localId, &randomTera1);
+        species = RandomizeFixedEncounterMon(species, mapNum, mapGroup, localId);
     #endif
 
     if(species2 == SPECIES_NONE)
     {
-        CreateScriptedWildMon(species, level, item, randomTera1);
+        CreateScriptedWildMon(species, level, item);
         sIsScriptedWildDouble = FALSE;
     }
     else
     {
         #if RANDOMIZER_AVAILABLE == TRUE
-            species2 = RandomizeFixedEncounterMon(species2, mapNum, mapGroup, localId, &randomTera2);
+            species2 = RandomizeFixedEncounterMon(species2, mapNum, mapGroup, localId);
         #endif
 
-        CreateScriptedDoubleWildMon(species, level, item, species2, level2, item2, randomTera1, randomTera2);
+        CreateScriptedDoubleWildMon(species, level, item, species2, level2, item2);
         sIsScriptedWildDouble = TRUE;
     }
 

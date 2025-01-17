@@ -2270,7 +2270,7 @@ bool8 ObjectEventInteractionBerryHasPests(void)
     species = GetBerryPestSpecies(gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(gSelectedObjectEvent)].berry);
     if (species == SPECIES_NONE)
         return FALSE;
-    CreateScriptedWildMon(species, 14 + Random() % 3, ITEM_NONE, (Random() % 20) + 1);
+    CreateScriptedWildMon(species, 14 + Random() % 3, ITEM_NONE);
     gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(gSelectedObjectEvent)].pests = FALSE;
     return TRUE;
 }

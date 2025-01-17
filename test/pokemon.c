@@ -27,7 +27,7 @@ TEST("Terastallization type defaults to primary or secondary type")
     u32 i, teraType;
     struct Pokemon mon;
     for (i = 0; i < 128; i++) PARAMETRIZE {}
-    CreateMon(&mon, SPECIES_PIDGEY, 100, 0, FALSE, 0, OT_ID_PRESET, 0, 0);
+    CreateMon(&mon, SPECIES_PIDGEY, 100, 0, FALSE, 0, OT_ID_PRESET, 0);
     teraType = GetMonData(&mon, MON_DATA_TERA_TYPE);
     EXPECT(teraType == gSpeciesInfo[SPECIES_PIDGEY].types[0]
         || teraType == gSpeciesInfo[SPECIES_PIDGEY].types[1]);
@@ -41,7 +41,7 @@ TEST("Terastallization type can be set to any type except TYPE_NONE")
     {
         PARAMETRIZE { teraType = i; }
     }
-    CreateMon(&mon, SPECIES_WOBBUFFET, 100, 0, FALSE, 0, OT_ID_PRESET, 0, 0);
+    CreateMon(&mon, SPECIES_WOBBUFFET, 100, 0, FALSE, 0, OT_ID_PRESET, 0);
     SetMonData(&mon, MON_DATA_TERA_TYPE, &teraType);
     EXPECT_EQ(teraType, GetMonData(&mon, MON_DATA_TERA_TYPE));
 }
@@ -54,7 +54,7 @@ TEST("Terastallization type is reset to the default types when setting Tera Type
     {
         PARAMETRIZE { teraType = i; typeNone = TYPE_NONE; }
     }
-    CreateMon(&mon, SPECIES_PIDGEY, 100, 0, FALSE, 0, OT_ID_PRESET, 0, 0);
+    CreateMon(&mon, SPECIES_PIDGEY, 100, 0, FALSE, 0, OT_ID_PRESET, 0);
     SetMonData(&mon, MON_DATA_TERA_TYPE, &teraType);
     EXPECT_EQ(teraType, GetMonData(&mon, MON_DATA_TERA_TYPE));
     SetMonData(&mon, MON_DATA_TERA_TYPE, &typeNone);
@@ -69,7 +69,7 @@ TEST("Shininess independent from PID and OTID")
     bool32 isShiny;
     struct Pokemon mon;
     PARAMETRIZE { pid = 0; otId = 0; }
-    CreateMon(&mon, SPECIES_WOBBUFFET, 100, 0, TRUE, pid, OT_ID_PRESET, otId, 0);
+    CreateMon(&mon, SPECIES_WOBBUFFET, 100, 0, TRUE, pid, OT_ID_PRESET, otId);
     isShiny = IsMonShiny(&mon);
     data = !isShiny;
     SetMonData(&mon, MON_DATA_IS_SHINY, &data);
@@ -82,7 +82,7 @@ TEST("Hyper Training increases stats without affecting IVs")
 {
     u32 data, hp, atk, def, speed, spatk, spdef;
     struct Pokemon mon;
-    CreateMon(&mon, SPECIES_WOBBUFFET, 100, 3, TRUE, 0, OT_ID_PRESET, 0, 0);
+    CreateMon(&mon, SPECIES_WOBBUFFET, 100, 3, TRUE, 0, OT_ID_PRESET, 0);
 
     hp = GetMonData(&mon, MON_DATA_HP);
     atk = GetMonData(&mon, MON_DATA_ATK);
@@ -132,7 +132,7 @@ TEST("Status1 round-trips through BoxPokemon")
     PARAMETRIZE { status1 = STATUS1_PARALYSIS; }
     PARAMETRIZE { status1 = STATUS1_TOXIC_POISON; }
     PARAMETRIZE { status1 = STATUS1_FROSTBITE; }
-    CreateMon(&mon1, SPECIES_WOBBUFFET, 100, 0, FALSE, 0, OT_ID_PRESET, 0, 0);
+    CreateMon(&mon1, SPECIES_WOBBUFFET, 100, 0, FALSE, 0, OT_ID_PRESET, 0);
     SetMonData(&mon1, MON_DATA_STATUS, &status1);
     BoxMonToMon(&mon1.box, &mon2);
     EXPECT_EQ(GetMonData(&mon2, MON_DATA_STATUS), status1);
@@ -141,7 +141,7 @@ TEST("Status1 round-trips through BoxPokemon")
 TEST("canhypertrain/hypertrain affect MON_DATA_HYPER_TRAINED_* and recalculate stats")
 {
     u32 atk;
-    CreateMon(&gPlayerParty[0], SPECIES_WOBBUFFET, 100, 0, FALSE, 0, OT_ID_PRESET, 0, 0);
+    CreateMon(&gPlayerParty[0], SPECIES_WOBBUFFET, 100, 0, FALSE, 0, OT_ID_PRESET, 0);
     atk = GetMonData(&gPlayerParty[0], MON_DATA_ATK);
 
     RUN_OVERWORLD_SCRIPT(
@@ -160,7 +160,7 @@ TEST("canhypertrain/hypertrain affect MON_DATA_HYPER_TRAINED_* and recalculate s
 
 TEST("hasgigantamaxfactor/togglegigantamaxfactor affect MON_DATA_GIGANTAMAX_FACTOR")
 {
-    CreateMon(&gPlayerParty[0], SPECIES_WOBBUFFET, 100, 0, FALSE, 0, OT_ID_PRESET, 0, 0);
+    CreateMon(&gPlayerParty[0], SPECIES_WOBBUFFET, 100, 0, FALSE, 0, OT_ID_PRESET, 0);
 
     RUN_OVERWORLD_SCRIPT(
         hasgigantamaxfactor 0;
@@ -184,7 +184,7 @@ TEST("hasgigantamaxfactor/togglegigantamaxfactor affect MON_DATA_GIGANTAMAX_FACT
 
 TEST("togglegigantamaxfactor fails for Melmetal")
 {
-    CreateMon(&gPlayerParty[0], SPECIES_MELMETAL, 100, 0, FALSE, 0, OT_ID_PRESET, 0, 0);
+    CreateMon(&gPlayerParty[0], SPECIES_MELMETAL, 100, 0, FALSE, 0, OT_ID_PRESET, 0);
 
     RUN_OVERWORLD_SCRIPT(
         hasgigantamaxfactor 0;
@@ -371,7 +371,7 @@ TEST("givemon [vars]")
 
 TEST("checkteratype/setteratype work")
 {
-    CreateMon(&gPlayerParty[0], SPECIES_WOBBUFFET, 100, 0, FALSE, 0, OT_ID_PRESET, 0, 0);
+    CreateMon(&gPlayerParty[0], SPECIES_WOBBUFFET, 100, 0, FALSE, 0, OT_ID_PRESET, 0);
 
     RUN_OVERWORLD_SCRIPT(
         checkteratype 0;
