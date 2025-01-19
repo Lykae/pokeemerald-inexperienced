@@ -374,6 +374,7 @@ static const u16 *const sShopInventories[] =
     sShopInventory_EightBadges,
     sShopInventory_EightBadges,
     sShopInventory_EightBadges,
+    sShopInventory_EightBadges,
     sShopInventory_EightBadges
 };
 
