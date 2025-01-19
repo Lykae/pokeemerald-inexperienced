@@ -1112,7 +1112,11 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 availableIVs[NUM_STATS];
     u8 selectedIvs[NUM_STATS];
     bool32 isShiny;
-    u8 randomTera = (Random() % 20) + 1;
+    u8 randomTera = 0;
+
+    while(randomTera < 1 || randomTera > 20) {
+        randomTera = (Random() % 20) + 1;
+    }
 
     ZeroBoxMonData(boxMon);
 
