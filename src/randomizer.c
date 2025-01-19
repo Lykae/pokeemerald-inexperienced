@@ -216,8 +216,10 @@ u16 RandomizeFoundItem(u16 itemId, u8 mapNum, u8 mapGroup, u8 localId)
     u16 result;
     u32 mapSeed;
 
-    if (!ShouldRandomizeItem(itemId))
-        return itemId;
+    if (itemId != ITEM_ESCAPE_ROPE) {
+        if (!ShouldRandomizeItem(itemId))
+            return itemId;
+    }
 
     // Seed the generator using the original item and the object event that led up
     // to this call.

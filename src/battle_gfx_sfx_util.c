@@ -1073,8 +1073,8 @@ void HandleLowHpMusicChange(struct Pokemon *mon, u8 battler)
     {
         if (!gBattleSpritesDataPtr->battlerData[battler].lowHpSong)
         {
-            if (!gBattleSpritesDataPtr->battlerData[BATTLE_PARTNER(battler)].lowHpSong)
-                PlaySE(SE_LOW_HEALTH);
+            //if (!gBattleSpritesDataPtr->battlerData[BATTLE_PARTNER(battler)].lowHpSong)
+            //    PlaySE(SE_LOW_HEALTH);
             gBattleSpritesDataPtr->battlerData[battler].lowHpSong = 1;
         }
     }
